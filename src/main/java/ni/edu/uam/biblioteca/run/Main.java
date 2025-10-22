@@ -15,23 +15,32 @@ public class Main {
         a.setNombre("Gabriel García Márquez");
         a.setNacionalidad("Colombiana");
         dao.insert(a);
+
+        Autor r = new Autor();
+        r.setNombre("Rubén Darío");
+        r.setNacionalidad("Nicaragüense");
+        dao.insert(r);
     }
 
     public static void listarAutores() {
         System.out.println("Registros almacenados:");
         List<Autor> autores = dao.getAll("autores.All", Autor.class);
-        autores.forEach(autor -> System.out.println(autor.getNombre()));
+        autores.forEach(a -> System.out.println(a.getNombre()));
     }
 
     public static void editarAutor() {
         Autor a = dao.findById(1, Autor.class);
-        a.setNacionalidad("Colombiana");
-        dao.update(a);
+        if (a != null) {
+            a.setNacionalidad("Colombiano");
+            dao.update(a);
+        }
     }
 
     public static void eliminarAutor() {
         Autor a = dao.findById(2, Autor.class);
-        dao.delete(a);
+        if (a != null) {
+            dao.delete(a);
+        }
     }
 
     public static void insertarCategoria() {
@@ -43,18 +52,22 @@ public class Main {
     public static void listarCategorias() {
         System.out.println("Registros almacenados:");
         List<Categoria> categorias = dao.getAll("categorias.All", Categoria.class);
-        categorias.forEach(categoria -> System.out.println(categoria.getNombre()));
+        categorias.forEach(c -> System.out.println(c.getNombre()));
     }
 
     public static void editarCategoria() {
         Categoria c = dao.findById(1, Categoria.class);
-        c.setNombre("Ciencia Ficción");
-        dao.update(c);
+        if (c != null) {
+            c.setNombre("Ciencia Ficción");
+            dao.update(c);
+        }
     }
 
     public static void eliminarCategoria() {
         Categoria c = dao.findById(2, Categoria.class);
-        dao.delete(c);
+        if (c != null) {
+            dao.delete(c);
+        }
     }
 
     public static void insertarLibro() {
@@ -74,26 +87,25 @@ public class Main {
     public static void listarLibros() {
         System.out.println("Registros almacenados:");
         List<Libro> libros = dao.getAll("libros", Libro.class);
-        libros.forEach(libro -> System.out.println(libro.getTitulo()));
+        libros.forEach(l -> System.out.println(l.getTitulo()));
     }
 
     public static void editarLibro() {
         Libro l = dao.findById(1, Libro.class);
-        l.setTitulo("El amor en los tiempos del cólera");
-        dao.update(l);
+        if (l != null) {
+            l.setTitulo("El amor en los tiempos del cólera");
+            dao.update(l);
+        }
     }
 
     public static void eliminarLibro() {
         Libro l = dao.findById(2, Libro.class);
-        dao.delete(l);
+        if (l != null) {
+            dao.delete(l);
+        }
     }
 
-    // -----------------------------
-    //             MAIN
-    // -----------------------------
-
     public static void main(String[] args) {
-        // AUTOR
         insertarAutor();
         listarAutores();
         editarAutor();
@@ -101,7 +113,6 @@ public class Main {
         eliminarAutor();
         listarAutores();
 
-        // CATEGORIA
         insertarCategoria();
         listarCategorias();
         editarCategoria();
@@ -109,7 +120,6 @@ public class Main {
         eliminarCategoria();
         listarCategorias();
 
-        // LIBRO
         insertarLibro();
         listarLibros();
         editarLibro();
